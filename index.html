@@ -1,0 +1,201 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Blueokanna's Blog">
+    <meta name="author" content="Blueokanna">
+    <meta name="keywords" content="blog, Blueokanna, web development">
+    <title>Blue's Blog</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2593/2593542.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-shows">
+            <div class="header-img" id="BlueLogo" onclick="navigateToLink('https://blueokanna.gay')">
+            </div>
+            <div class="nav-menu nav-menu-center">Blue's PulseLink Blog</div>
+        </div>
+        <div class="nav-button">
+            <nav>
+                <ul class="nav-menu nav-menu-left-home">
+                    <li><a href="https://blueokanna.gay" onclick="navigateToLink('https://blueokanna.gay')"><i
+                                class="fas fa-home"></i> Home</a></li>
+                </ul>
+
+                <ul class="nav-menu nav-menu-right-github">
+                    <li>
+                        <a href="https://github.com/blueokanna">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="portfolio" class="card-container">
+        <div class="flex-container">
+            <div class="left-column">
+                <div class="flex-holder">
+                    <div class="col text-col aos-init aos-animate" data-aos="fade-up">
+                        <div class="content-holder">
+                            <div class="title-holder">
+                                <div class="top-image-holder">
+                                    <img class="profile_pic" src="https://avatars.githubusercontent.com/u/56761243?v=4">
+                                    <h1> Blueokanna </h1>
+                                </div>
+                                <h1 class="profile_name" style="color: rgba(255, 255, 255, 0.75); ">Bio about me:</h1>
+                            </div>
+                            <div class="left-box-text-holder">
+                                <p> As a passionate Java backend engineer, I have been focusing on the tech field for
+                                    many years, conducting in-depth research and practice in Java development.
+                                    My blog will share my technical insights, including Java fundamentals, framework
+                                    applications, and performance optimization.
+                                </p>
+                                <p>
+                                    I engage in learning and exchange with you, working together to
+                                    progress.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 8px;"></div>
+            <div class="right-column">
+                <div class="col gallery-col">
+                    <div class="col-inner-holder aos-init aos-animate" data-aos="fade-up" data-aos-delay="250">
+                        <div class="text-holder">
+                            <h1 style="color: rgba(255, 255, 255, 0.6);">GitHub Project:</h1>
+                            <ul id="project-list">
+                            </ul>
+                            <ul id="project-list-org">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="inner-footer-contain">
+            <p>&copy; 2023 Blueokanna Copyright</p>
+        </div>
+    </footer>
+
+    <script>
+        const images = document.querySelectorAll(".image-container img");
+        let counter = 1;
+
+        window.addEventListener("scroll", () => {
+            const scrollPosition = window.scrollY;
+            const blurValue = (scrollPosition / 100).toFixed(1);
+            document.body.style.backdropFilter = `blur(${blurValue}px)`;
+
+            images.forEach((img, index) => {
+                const imageTop = img.getBoundingClientRect().top;
+                if (imageTop < window.innerHeight) {
+                    img.style.display = "block";
+                }
+            });
+        });
+
+        function navigateToLink(url) {
+            window.location.href = url;
+        }
+
+// 获取用户仓库数据
+fetch('https://api.github.com/users/blueokanna/repos')
+    .then(response => response.json())
+    .then(data => {
+        const projectList = document.getElementById('project-list');
+
+        data.forEach(project => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+
+            link.href = project.html_url;
+            link.textContent = project.name;
+
+            const languageSpan = document.createElement('span');
+
+            fetch(project.languages_url)
+                .then(response => response.json())
+                .then(languagesData => {
+                    const languages = Object.keys(languagesData);
+                    if (languages.length > 0) {
+                        languageSpan.textContent = ` (${languages.join(', ')})`;
+                    }
+
+                    const counterSpan = document.createElement('span');
+                    counterSpan.textContent = `${counter}. `;
+                    counterSpan.style.marginRight = '12px';
+                    counterSpan.style.color = 'wheat';
+                    counterSpan.style.fontWeight = 'bold';
+                    languageSpan.style.color = 'white';
+                    languageSpan.style.fontWeight = 'bold';
+
+                    listItem.appendChild(counterSpan);
+                    listItem.appendChild(link);
+                    listItem.appendChild(languageSpan);
+                    projectList.appendChild(listItem);
+                    counter++;
+                })
+                .catch(error => console.error('Error fetching languages data: ' + error));
+        });
+    })
+    .catch(error => console.error('Error fetching GitHub data for user: ' + error));
+
+fetch('https://api.github.com/orgs/AstralQuanta/repos')
+    .then(response => response.json())
+    .then(data => {
+        const projectListOrg = document.getElementById('project-list-org');
+
+        data.forEach(project => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+
+            link.href = project.html_url;
+            link.textContent = project.name;
+
+            const languageSpan = document.createElement('span');
+
+            fetch(project.languages_url)
+                .then(response => response.json())
+                .then(languagesData => {
+                    const languages = Object.keys(languagesData);
+                    if (languages.length > 0) {
+                        languageSpan.textContent = ` (${languages.join(', ')})`;
+                    }
+
+                    const counterSpan = document.createElement('span');
+                    counterSpan.textContent = `${counter}. `;
+                    counterSpan.style.marginRight = '12px';
+                    counterSpan.style.color = 'wheat';
+                    counterSpan.style.fontWeight = 'bold';
+                    languageSpan.style.color = 'white';
+                    languageSpan.style.fontWeight = 'bold';
+
+                    listItem.appendChild(counterSpan);
+                    listItem.appendChild(link);
+                    listItem.appendChild(languageSpan);
+                    projectListOrg.appendChild(listItem);
+                    counter++;
+                })
+                .catch(error => console.error('Error fetching languages data: ' + error));
+        });
+    })
+    .catch(error => console.error('Error fetching GitHub data for organization: ' + error));
+
+
+    </script>
+</body>
+
+</html>
