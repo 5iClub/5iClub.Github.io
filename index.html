@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宅蝦侃侃侃 · 樂玩公社</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./image/LinkCat.png" />
+</head>
+<body>
+    <div class="container">
+        <!-- 用户资料 -->
+        <div class="profile-block">
+            <div class="profile-picture">
+                <img src="./image/宅蝦侃侃侃 · 樂玩公社.png" class="profile" />
+                <p class="username">宅蝦侃侃侃 · 樂玩公社</p>
+                <div class="notice-section">
+                    <p class="sub">✨“閒”是生活的標點 ✨ -- 負責把冗長的日子切割成詩！</p>
+                </div>
+            </div>
+            <footer class="copyright-footer">
+                <p class="sub">🚫 請勿使用運營商 DNS 訪問！</p>
+                <p class="sub">⚠️ 使用 AliDNS、DNSPodS 等第三方 DNS 訪問！</p>
+            </footer>
+        </div>
+
+        <!-- 首页链接 -->
+        <div class="links-container">
+            <div class="links">
+                <a href="https://loong.5iclub.us.kg">
+                    <img src="./image/“閒”是生活的標點 · 首頁.png"/>
+                    “閒”是生活的標點 · 首頁
+                </a>
+                <a href="https://adrules.5iclub.us.kg">
+                    <img src="./image/LinkCat.png" />
+                    ADS攔截規則 · CHINESE
+                </a>
+                <a href="https://icloud.5iclub.us.kg/GKD/Guīzé.stor"
+                    class="copy-link" 
+                    onclick="copyLink('https://icloud.5iclub.us.kg/GKD/Guīzé.stor'); return false;">
+                    <img src="./image/GKD规则 · 李跳跳.png" />
+                    GKD規則 · CHINA
+                </a>
+                <a href="https://legado.5iclub.us.kg/閱讀源/yck0619583.json"
+                    class="copy-link" 
+                    onclick="copyLink('https://legado.5iclub.us.kg/閱讀源/yck0619583.json'); return false;">
+                    <img src="./image/開源閱讀 · 書源.png" />
+                    開源閱讀 · 書源
+                </a>
+            </div>
+            <p class="sub1">---------------------------</p>
+        </div>
+
+        <!-- 直播部分 -->
+        <div class="notice-section">
+            <p class="sub1">實時直播集萃 🌟| 盈享精采瞬間</p>
+            <div class="links-container">
+                <div class="links">
+                    <a href="https://itv.5iclub.us.kg/Internet_iTV.m3u"
+                       class="copy-link" 
+                       onclick="copyLink('https://itv.5iclub.us.kg/Internet_iTV.m3u'); return false;">
+                        <img src="./image/Internet.M3U · 直播源.jpg" />
+                        Internet.M3U · 直播源
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 复制功能JS代码 -->
+    <script>
+    function copyLink(link) {
+        navigator.clipboard.writeText(link)
+            .then(() => alert('直播源地址已复制到剪贴板！'))
+            .catch(err => alert('复制失败：' + err));
+    }
+    </script>
+</body>
+</html>
