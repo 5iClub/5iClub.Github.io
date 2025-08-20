@@ -1,3 +1,1 @@
-## Preview
-
-![Page Preview](https://github.com/jack-crymble/WelcomeBreezeLinkFree/blob/main/Screenshot%202024-08-04%20at%2018.54.45.png)
+人的白嫖，就如同高山滚石一般，一旦开始，就再也停不下了 —— 「鲁迅」
