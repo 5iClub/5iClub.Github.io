@@ -5,133 +5,124 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="https://github.ugreen.us.kg/https://raw.githubusercontent.com/iTaoPu/iTaoPu.GitHub.io/List/Jing.png"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://github.ugreen.us.kg/https://raw.githubusercontent.com/iTaoPu/iTaoPu.GitHub.io/List/js/flipclock.js"></script>
+    <script src="https://github.ugreen.us.kg/https://raw.githubusercontent.com/5iClub/5iClub.Github.io/main/js/sidenav.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>“閒”是生活的標點</title>
 </head>
 <body style="display: flex;min-height: 100vh;flex-direction: column;">
-
-<!-- 导航栏 -->
-<nav class="grey darken-3" role="navigation">
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo"></a>
-        <ul class="right hide-on-med-and-down">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="https://adrules.ugreen.netlib.re" target="_blank">AdRules</a></li>
-            <li><a href="https://status.ugreen.netlib.re" target="_blank">服务监控</a></li>
-            <li><a href="https://blog.shrimp.netlib.re" target="_blank">Blogspot</a></li>
-            <li><a href="https://afdian.com/a/Shrimp_Geek" target="_blank">愛發電·動力源泉</a></li>
-        </ul>
-        <ul id="nav-mobile" class="sidenav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="https://adrules.ugreen.netlib.re" target="_blank">AdRules</a></li>
-            <li><a href="https://status.ugreen.netlib.re/" target="_blank">服务监控</a></li>
-            <li><a href="https://blog.shrimp.netlib.re" target="_blank">Blogspot</a></li>
-            <li><a href="https://afdian.com/a/Shrimp_Geek" target="_blank">愛發電·動力源泉</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-</nav>
-
-<!-- 头部标题 -->
-<div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-        <br><br>
-        <h1 class="header center red-text">“閒”是生活的標點</h1>
-        <br><br>
-    </div>
-</div>
-
-<!-- 主要内容 -->
-<main style="flex: 1 0 auto;">
-    <div class="container">
-        <div class="section" style="text-align: center;">
-            <div class="clock card-panel hoverable" style="display: inline-block; width: auto;"></div>
-            <div class="message"></div>
+    <nav class="grey darken-3" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"></a>
+            <ul class="right hide-on-med-and-down">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="https://adrules.5iclub.cloudns.biz" target="_blank">AdRules</a></li>
+                <li><a href="https://status.5iclub.cloudns.biz" target="_blank">服务监控</a></li>
+                <li><a href="https://blog.shrimp.netlib.re" target="_blank">Blogspot</a></li>
+                <li><a href="https://afdian.com/a/Shrimp_Geek" target="_blank">愛發電·動力源泉</a></li>
+            </ul>
+            <ul id="nav-mobile" class="sidenav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="https://adrules.5iclub.cloudns.biz" target="_blank">AdRules</a></li>
+                <li><a href="https://status.5iclub.cloudns.biz" target="_blank">服务监控</a></li>
+                <li><a href="https://blog.shrimp.netlib.re" target="_blank">Blogspot</a></li>
+                <li><a href="https://afdian.com/a/Shrimp_Geek" target="_blank">愛發電·動力源泉</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
-    </div>
-</main>
-
-<!-- 脚本部分 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        // 设置目标时间（UTC 时间，对应北京时间2026-01-01 00:00:00）
-        const futureDate = new Date('2026-01-01T08:00:00Z');
-
-        let clock;
-        
-        function updateClock() {
-            const now = new Date();
-            const diff = Math.floor((futureDate.getTime() - now.getTime()) / 1000);
-
-            if (diff <= 0) {
-                if (clock) {
-                    clock.stop();
-                    $('.message').html('<h5 class="red-text">倒计时已结束！</h5>');
-                }
-                return;
-            }
-
-            if (!clock) {
-                // 初始化计时器
-                clock = $('.clock').FlipClock(diff, {
-                    clockFace: 'Daily',
-                    countdown: true,
-                    autoStart: true,
-                    callbacks: {
-                        stop: function() {
-                            $('.message').html('<h5 class="green-text">活动进行中！</h5>');
-                        }
-                    }
-                });
-            } else {
-                // 动态更新时间
-                clock.setTime(diff);
-                clock.start();
-            }
-        }
-
-        // 每秒更新并初始化
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        // 初始化侧边栏
-        $('.sidenav').sidenav();
-    });
-</script>
-
-<!-- 底部 -->
-<footer class="page-footer grey darken-2">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5><a class="white-text" href="https://t.me/Centre996" target="_blank">i叚娤倖鍢</a></h5>
-                <p class="grey-text text-lighten-4">人的白嫖，就如同高山滚石一般，一旦开始，就再也停不下了 —— 「鲁迅」</p>
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text"></h5>
-                <ul>
-                </ul>
-            </div>
-            <div class="col l3 s12">
-                <h6 class="white-text">公益服務</h6>
-                <ul>
-                    <li><a class="white-text" href="https://docker.5iclub.cloudns.biz">5i計劃通行.Docker·镜像搜索</a></li>
-                    <li><a class="white-text" href="https://github.5iclub.cloudns.biz">5i計劃通行.GitHub·文件加速</a></li>
-                    <li><a class="white-text" href="https://url.5iclub.cloudns.biz">5i計劃通行.简约·链接缩短服务</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright">
+    </nav>
+    
+    <div class="section no-pad-bot" id="index-banner">
         <div class="container">
-            &copy; 2022-2025 宅蝦侃侃侃
+            <br><br>
+            <h1 class="header center red-text">“閒”是生活的標點</h1>
+            <br><br>
         </div>
     </div>
-</footer>
 
+    <main style="flex: 1 0 auto;">
+        <div class="container">
+            <div class="section" style="text-align: center;">
+                <div class="clock card-panel hoverable" style="display: inline-block; width: auto;"></div>
+                <div class="message"></div>
+                <script type="text/javascript">
+                    var clock;
+                    $(document).ready(function() {
+                        // 设置固定目标时间（北京时间2026年1月1日）
+                        const futureDate = new Date('2026-01-01T00:00:00+08:00');
+
+                        function updateClock() {
+                            const now = new Date();
+                            const diff = Math.floor((futureDate - now) / 1000);
+
+                            if (diff <= 0) {
+                                if(clock) {
+                                    clock.stop();
+                                    $('.message').html('<h5 class="red-text">倒计时已结束！</h5>');
+                                }
+                                return;
+                            }
+
+                            if (!clock) {
+                                // 初始化时钟
+                                clock = $('.clock').FlipClock(diff, {
+                                    clockFace: 'DailyCounter',
+                                    countdown: true,
+                                    autoStart: false,
+                                    callbacks: {
+                                        stop: function() {
+                                            $('.message').html('<h5 class="green-text">活动进行中！</h5>');
+                                        }
+                                    }
+                                }).start();
+                            } else {
+                                // 动态更新时间
+                                clock.setTime(diff);
+                                clock.start(); // 确保计时器运行
+                            }
+                        }
+
+                        // 初始化侧边栏
+                        $('.sidenav').sidenav();
+
+                        // 每秒更新
+                        setInterval(updateClock, 1000);
+                        updateClock(); // 立即初始化
+                    });
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer grey darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5><li><a class="white-text" href="https://t.me/Centre996" target="_blank">i叚娤倖鍢</a></li></h5>
+                    <p class="grey-text text-lighten-4">人的白嫖，就如同高山滚石一般，一旦开始，就再也停不下了 —— 「鲁迅」</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text"></h5>
+                    <ul>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h6 class="white-text">公益服務</h6>
+                    <ul>
+                        <li><a class="white-text" href="https://docker.5iclub.cloudns.biz">5i計劃通行.Docker·镜像搜索</a></li>
+                        <li><a class="white-text" href="https://github.5iclub.cloudns.biz">5i計劃通行.GitHub·文件加速</a></li>
+                        <li><a class="white-text" href="https://url.5iclub.cloudns.biz">5i計劃通行.简约·链接缩短服务</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container" style="position:relative;">
+                &copy; 2022-2025 宅蝦侃侃侃
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
