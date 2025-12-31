@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>“閒”是生活的標點 - 中國時間</title>
 
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/NotoSerifTC.css">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/flipclock.css">
-    <link href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/MaterialIcons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/NotoSerifTC.css">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/flipclock.css">
+    <link href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/MaterialIcons.css" rel="stylesheet">
     <link rel="icon" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jing.png"/>
    
     <style>
@@ -177,8 +177,8 @@
             transition: background-color 0.3s ease;
         }
 
-        #iTCoffe_text { font-style: italic; transition: opacity 0.5s ease; }
-        #iTCoffe_from { font-size: 0.8rem; margin-left: 10px; }
+        #hitokoto_text { font-style: italic; transition: opacity 0.5s ease; }
+        #hitokoto_from { font-size: 0.8rem; margin-left: 10px; }
 
         /* 切換按鈕 */
         #theme-toggle-fab { position: fixed; right: 20px; bottom: 20px; z-index: 1000; }
@@ -237,7 +237,7 @@
             </a>
             
             <a href="#" data-target="nav-mobile" class="sidenav-trigger">
-                <img src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/LinkCat.png" alt="Logo" class="mobile-logo-trigger">
+                <img src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jing.png" alt="Logo" class="mobile-logo-trigger">
             </a>
             
             <ul class="right hide-on-med-and-down">
@@ -254,11 +254,11 @@
     <ul class="sidenav" id="nav-mobile">
         <li><div class="user-view"><div class="background black"></div><span class="white-text name">蜂巢</span></div></li>
         <li><a href="/">Home</a></li>
-                <li><a href="https://adrules.5iclub.us.kg" target="_blank">AdRules</a></li>
-                <li><a href="https://5iclub.blogspot.com" target="_blank">Blogspot</a></li>
-                <li><a href="https://status.5iclub.us.kg" target="_blank">服務監控</a></li>
-                <li><a href="https://vlink.cc/5iClub" target="_blank">蜂巢•隱曜</a></li>
-                <li><a href="https://ifdian.net/a/CNiao" target="_blank">愛發電•電羊</a></li>
+        <li><a href="https://adrules.5iclub.us.kg" target="_blank">AdRules</a></li>
+        <li><a href="https://5iclub.blogspot.com" target="_blank">Blogspot</a></li>
+        <li><a href="https://status.5iclub.us.kg" target="_blank">服務監控</a></li>
+        <li><a href="https://vlink.cc/5iClub" target="_blank">蜂巢•隱曜</a></li>
+        <li><a href="https://ifdian.net/a/CNiao" target="_blank">愛發電•電羊</a></li>
     </ul>
    
     <main>
@@ -278,7 +278,7 @@
         <div class="container">
             <div class="row">
                 <div class="col l8 s12">
-                    <h6><a href="https://t.me/CNiao_P" target="_blank" style="color:#ff5252;">計劃通行</a></h6>
+                    <h6><a href="https://t.me/CNiao_P" target="_blank" style="color:#ff5252;">鯉躍龍門</a></h6>
                     <p class="grey-text text-lighten-1">
                         「<span id="hitokoto_text">人的白嫖，就如同高山滾石一般，一旦開始，就再也停不下了</span>」
     <small id="hitokoto_from">—— 魯迅</small>
@@ -293,9 +293,9 @@
         </div>
     </footer>
 
-    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/jquery.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/materialize.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/flipclock.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/jquery.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/materialize.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/flipclock.js"></script>
    
     <script type="text/javascript">
         $(document).ready(function() {
@@ -328,15 +328,15 @@
             });
 
             // 名句獲取函式
-            function fetchiTCoffe() {
-                fetch('https://v1.iTCoffe.cn')
+            function fetchHitokoto() {
+                fetch('https://v1.hitokoto.cn')
                     .then(response => response.json())
                     .then(data => {
-                        $('#iTCoffe_text').fadeOut(300, function() {
-                            $(this).text(data.iTCoffe).fadeIn(300);
+                        $('#hitokoto_text').fadeOut(300, function() {
+                            $(this).text(data.hitokoto).fadeIn(300);
                         });
                         if (data.from) { 
-                            $('#iTCoffe_from').fadeOut(300, function() {
+                            $('#hitokoto_from').fadeOut(300, function() {
                                 $(this).text('—— ' + data.from).fadeIn(300);
                             });
                         }
@@ -345,12 +345,12 @@
             }
 
             // 初始加載名句
-            fetchiTCoffe();
+            fetchHitokoto();
 
             // --- 新增：名人名言單獨每 60 秒自動更新一次 ---
        setTimeout(function() {
              fetchHitokoto();
-        }, 9000);   // 9 秒後才第一次從網路更新，讓本地名言停留一會
+        }, 6000);   // 6 秒後才第一次從網路更新，讓本地名言停留一會
 
         setInterval(function() {
               fetchHitokoto();
@@ -421,5 +421,3 @@
     </script>
 </body>
 </html>
-
-
