@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>“閒”是生活的標點 - 中國時間</title>
 
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/NotoSerifTC.css">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/flipclock.css">
-    <link href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/MaterialIcons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/NotoSerifTC.css">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/flipclock.css">
+    <link href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/MaterialIcons.css" rel="stylesheet">
     <link rel="icon" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jing.png"/>
    
     <style>
@@ -220,6 +220,10 @@
         body.light-mode .page-footer { background-color: #eeeeee !important; }
         body.light-mode .footer-copyright { background-color: #e0e0e0 !important; }
         body.light-mode .page-footer p, body.light-mode .page-footer h6 a { color: #212121 !important; }
+        
+        /* 新增：手動刷新樣式 */
+        #sync-status { cursor: pointer; user-select: none; }
+        #sync-status:hover { filter: brightness(1.2); }
     </style>
 </head>
 
@@ -266,7 +270,7 @@
             <h1 class="header-title">“閒”是生活的標點</h1>
             <p class="sub-text">CHINA TIME</p>
             <div id="bj-date" class="grey-text text-lighten-1" style="font-size: 0.9rem; margin-bottom: 20px; font-weight: 300;"></div>
-            <div id="sync-status" style="font-size: 0.85rem; transition: all 0.5s ease; color: #ff5252;">校準授時中...</div>
+            <div id="sync-status" title="點擊手動校準時間" style="font-size: 0.85rem; transition: all 0.5s ease; color: #ff5252;">互聯網校準授時中...</div>
            
             <div class="clock-wrapper" id="timer-container">
                 <div class="clock"></div>
@@ -293,9 +297,9 @@
         </div>
     </footer>
 
-    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/jquery.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/materialize.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/flipclock.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/jquery.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/materialize.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/flipclock.js"></script>
    
     <script type="text/javascript">
         $(document).ready(function() {
@@ -312,7 +316,7 @@
                 if (hour >= 6 && hour < 18) {
                     $('body').addClass('light-mode');
                 } else {
-                    $('body').removeClass('light-mode');
+                    $('body').removeClass('removeClass');
                 }
             }
 
@@ -347,14 +351,9 @@
             // 初始加載名句
             fetchHitokoto();
 
-            // --- 新增：名人名言單獨每 60 秒自動更新一次 ---
-       setTimeout(function() {
-             fetchHitokoto();
-        }, 6000);   // 6 秒後才第一次從網路更新，讓本地名言停留一會
-
-        setInterval(function() {
-              fetchHitokoto();
-        }, 60000);  // 之後每 60 秒更新一次
+            // --- 名人名言自動更新 ---
+            setTimeout(function() { fetchHitokoto(); }, 6000);   
+            setInterval(function() { fetchHitokoto(); }, 60000);  
 
             let timeOffset = 0;
 
@@ -397,7 +396,7 @@
                         timeOffset = (serverTime + latency) - endTime;
                         if (Math.abs(timeOffset) > 1000) clock.setTime(getBeijingTime());
                         $('#sync-status').fadeOut(500, function() {
-                            $(this).html('<i class="material-icons" style="font-size:14px; vertical-align:middle;">cloud_done</i> 蜂巢時間已同步 (互聯網校準時間)')
+                            $(this).html('<i class="material-icons" style="font-size:14px; vertical-align:middle;">cloud_done</i> 蜂巢時間同步成功 (互聯網校準時間)')
                                    .css('color', '#4caf50').fadeIn();
                         });
                         success = true;
@@ -405,13 +404,20 @@
                     } catch (e) { console.warn(api.name + ' 接口失效...'); }
                 }
                 if (!success) {
-                    $('#sync-status').html('<i class="material-icons" style="font-size:14px; vertical-align:middle;">cloud_off</i> 蜂巢時間已同步 (本地系統時間)').css('color', '#ff9800');
+                    $('#sync-status').html('<i class="material-icons" style="font-size:14px; vertical-align:middle;">cloud_off</i> 蜂巢時間同步失敗 (本地系統時間)').css('color', '#ff9800');
                 }
             }
 
+            // 新增：點擊狀態欄手動刷新
+            $('#sync-status').on('click', function() {
+                $(this).fadeOut(200, function() {
+                    $(this).text('正在重新校準時間...').css('color', '#ff5252').fadeIn(200);
+                    syncWithNTP(); 
+                });
+            });
+
             setTimeout(syncWithNTP, 1800);
 
-            // 每小時的長週期背景更新（時間校正、主題檢查）
             setInterval(() => { 
                 updateDate(); 
                 syncWithNTP(); 
