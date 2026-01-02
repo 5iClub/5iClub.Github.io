@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>“閒”是生活的標點 - 中國時間</title>
 
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/NotoSerifTC.css">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/flipclock.css">
-    <link href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/css/MaterialIcons.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Noto Serif TC';
+            font-display: swap;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/NotoSerifTC.css">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/flipclock.css">
+    <link href="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/css/MaterialIcons.css" rel="stylesheet">
     <link rel="icon" href="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jing.png"/>
    
     <style>
@@ -145,6 +151,11 @@
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
         }
 
+        /* 優化：桌面端導航欄圖標與文字靠近 */
+        .nav-wrapper ul li a i.left {
+            margin-right: 6px !important; 
+        }
+
         .nav-wrapper ul li a:hover {
             color: #ff5252 !important;
             background-color: rgba(255, 255, 255, 0.05) !important;
@@ -192,25 +203,27 @@
             display: flex !important;
             align-items: center !important;
         }
+        
+        /* 優化：移動端側邊欄圖標與文字靠近 */
         .sidenav li a i { 
             color: #ffffff !important; 
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 24px !important; /* 固定寬度確保對齊 */
-            margin: 0 32px 0 0 !important; /* 與 Materialize 默認一致 */
+            width: 24px !important; 
+            margin: 0 12px 0 0 !important; /* 原本是 32px，改為 12px 使文字靠近 */
         }
 
         /* --- 側邊欄 User-View 優化 (Hive 圖標對齊) --- */
         .sidenav .user-view {
             display: flex;
             align-items: center;
-            padding: 32px 32px 16px; /* 這裡的 32px 左間距對應下方的圖標位置 */
+            padding: 32px 32px 16px;
         }
         .sidenav .user-view .hive-icon {
             font-size: 28px !important; 
             margin: 0 !important;
-            width: 24px !important; /* 強制與下方圖標寬度一致 */
+            width: 24px !important; 
             display: flex !important;
             justify-content: center !important;
             color: #ff5252;
@@ -232,7 +245,6 @@
         }
         body.light-mode .sidenav-trigger i { color: #212121 !important; }
         
-        /* 淺色模式：Logo 保持原色 */
         body.light-mode .mobile-logo-trigger { filter: none !important; }
 
         body.light-mode .sidenav { background-color: #ffffff !important; }
@@ -272,7 +284,7 @@
     <nav class="black">
         <div class="nav-wrapper container">
             <a href="/" class="brand-logo">
-                <img src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jingpng" alt="Logo">
+                <img src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jing.png" alt="Logo">
             </a>
             
             <a href="#" data-target="nav-mobile" class="sidenav-trigger">
@@ -298,11 +310,11 @@
                 </div>
         </li>
         <li><a href="/"><i class="material-icons">home</i>Home</a></li>
-        <li><a href="https://adrules.5iclub.us.kg" target="_blank"><i class="material-icons">security</i>AdRules</a></li>
-        <li><a href="https://5iclub.blogspot.com" target="_blank"><i class="material-icons">rss_feed</i>Blogspot</a></li>
-        <li><a href="https://status.5iclub.us.kg" target="_blank"><i class="material-icons">dns</i>服務監控</a></li>
-        <li><a href="https://vlink.cc/CNiao" target="_blank"><i class="material-icons">dashboard</i>蜂巢•隱曜</a></li>
-        <li><a href="https://ifdian.net/a/CNiao" target="_blank"><i class="material-icons">flash_on</i>愛發電•電羊</a></li>
+                <li><a href="https://adrules.5iclub.us.kg" target="_blank"><i class="material-icons left">security</i>AdRules</a></li>
+                <li><a href="https://5iclub.blogspot.com" target="_blank"><i class="material-icons left">rss_feed</i>Blogspot</a></li>
+                <li><a href="https://status.5iclub.us.kg" target="_blank"><i class="material-icons left">dns</i>服務監控</a></li>
+                <li><a href="https://vlink.cc/CNiao" target="_blank"><i class="material-icons left">dashboard</i>蜂巢•隱曜</a></li>
+                <li><a href="https://ifdian.net/a/CNiao" target="_blank"><i class="material-icons left">flash_on</i>愛發電•電羊</a></li>
     </ul>
    
     <main>
@@ -332,17 +344,20 @@
         </div>
         <div class="footer-copyright black">
             <div class="container grey-text text-darken-1">
-                &copy; 2022-2026 蜂巢·隱曜
+                &copy; 2022-<span id="current-year">2026</span> 蜂巢·隱曜
             </div>
         </div>
     </footer>
 
-    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/jquery.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/materialize.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/js/flipclock.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/jquery.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/materialize.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/iTaoPu/iTaoPu.Github.io@List/js/flipclock.js"></script>
    
     <script type="text/javascript">
         $(document).ready(function() {
+            // 自動更新版權年份
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
             // 初始化 sidenav
             $('.sidenav').sidenav({
                 onOpenStart: function() { $('.mobile-logo-trigger').addClass('logo-spin'); },
