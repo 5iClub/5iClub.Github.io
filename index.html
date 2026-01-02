@@ -50,7 +50,7 @@
             transform: rotate(15deg) scale(1.1);
         }
 
-        /* --- 移動端修改核心 CSS (Logo 縮小、下移) --- */
+        /* --- 移動端修改核心 CSS --- */
         @media only screen and (max-width: 992px) {
             nav .brand-logo {
                 display: none !important;
@@ -187,8 +187,35 @@
         #theme-toggle-fab a:hover i { transform: rotate(30deg); }
 
         .sidenav { background-color: #212121 !important; }
-        .sidenav li a { color: #ffffff !important; }
-        .sidenav li a i { color: #ffffff !important; }
+        .sidenav li a { 
+            color: #ffffff !important; 
+            display: flex !important;
+            align-items: center !important;
+        }
+        .sidenav li a i { 
+            color: #ffffff !important; 
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 24px !important; /* 固定寬度確保對齊 */
+            margin: 0 32px 0 0 !important; /* 與 Materialize 默認一致 */
+        }
+
+        /* --- 側邊欄 User-View 優化 (Hive 圖標對齊) --- */
+        .sidenav .user-view {
+            display: flex;
+            align-items: center;
+            padding: 32px 32px 16px; /* 這裡的 32px 左間距對應下方的圖標位置 */
+        }
+        .sidenav .user-view .hive-icon {
+            font-size: 28px !important; 
+            margin: 0 !important;
+            width: 24px !important; /* 強制與下方圖標寬度一致 */
+            display: flex !important;
+            justify-content: center !important;
+            color: #ff5252;
+            transition: color 0.3s ease;
+        }
 
         /* --- 淺色模式 --- */
         body.light-mode {
@@ -204,10 +231,19 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
         body.light-mode .sidenav-trigger i { color: #212121 !important; }
+        
+        /* 淺色模式：Logo 保持原色 */
+        body.light-mode .mobile-logo-trigger { filter: none !important; }
+
         body.light-mode .sidenav { background-color: #ffffff !important; }
         body.light-mode .sidenav li a { color: #212121 !important; }
+        body.light-mode .sidenav li a i { color: #212121 !important; }
         body.light-mode .sidenav li .user-view .background.black { background-color: #eeeeee !important; }
-        body.light-mode .sidenav li .user-view .white-text.name { color: #212121 !important; }
+        
+        body.light-mode .sidenav .user-view .hive-icon { 
+            color: #212121 !important; 
+        }
+
         body.light-mode .sub-text { color: #424242 !important; }
         body.light-mode #bj-date { color: #212121 !important; }
         body.light-mode .flip-clock-wrapper ul li a div div.inn {
@@ -221,7 +257,6 @@
         body.light-mode .footer-copyright { background-color: #e0e0e0 !important; }
         body.light-mode .page-footer p, body.light-mode .page-footer h6 a { color: #212121 !important; }
         
-        /* 新增：手動刷新樣式 */
         #sync-status { cursor: pointer; user-select: none; }
         #sync-status:hover { filter: brightness(1.2); }
     </style>
@@ -237,7 +272,7 @@
     <nav class="black">
         <div class="nav-wrapper container">
             <a href="/" class="brand-logo">
-                <img src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jing.png" alt="Logo">
+                <img src="https://fastly.jsdelivr.net/gh/iTCoffe/iTCoffe.Github.io@List/Jingpng" alt="Logo">
             </a>
             
             <a href="#" data-target="nav-mobile" class="sidenav-trigger">
@@ -245,24 +280,29 @@
             </a>
             
             <ul class="right hide-on-med-and-down">
-                <li><a href="/">Home</a></li>
-                <li><a href="https://adrules.5iclub.us.kg" target="_blank">AdRules</a></li>
-                <li><a href="https://5iclub.blogspot.com" target="_blank">Blogspot</a></li>
-                <li><a href="https://status.5iclub.us.kg" target="_blank">服務監控</a></li>
-                <li><a href="https://vlink.cc/5iClub" target="_blank">蜂巢•隱曜</a></li>
-                <li><a href="https://ifdian.net/a/CNiao" target="_blank">愛發電•電羊</a></li>
+                <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
+                <li><a href="https://adrules.5iclub.us.kg" target="_blank"><i class="material-icons left">security</i>AdRules</a></li>
+                <li><a href="https://5iclub.blogspot.com" target="_blank"><i class="material-icons left">rss_feed</i>Blogspot</a></li>
+                <li><a href="https://status.5iclub.us.kg" target="_blank"><i class="material-icons left">dns</i>服務監控</a></li>
+                <li><a href="https://vlink.cc/CNiao" target="_blank"><i class="material-icons left">dashboard</i>蜂巢•隱曜</a></li>
+                <li><a href="https://ifdian.net/a/CNiao" target="_blank"><i class="material-icons left">flash_on</i>愛發電•電羊</a></li>
             </ul>
         </div>
     </nav>
 
     <ul class="sidenav" id="nav-mobile">
-        <li><div class="user-view"><div class="background black"></div><span class="white-text name">蜂巢</span></div></li>
-        <li><a href="/">Home</a></li>
-        <li><a href="https://adrules.5iclub.us.kg" target="_blank">AdRules</a></li>
-        <li><a href="https://5iclub.blogspot.com" target="_blank">Blogspot</a></li>
-        <li><a href="https://status.5iclub.us.kg" target="_blank">服務監控</a></li>
-        <li><a href="https://vlink.cc/5iClub" target="_blank">蜂巢•隱曜</a></li>
-        <li><a href="https://ifdian.net/a/CNiao" target="_blank">愛發電•電羊</a></li>
+        <li>
+            <div class="user-view">
+                <div class="background black"></div>
+                <i class="material-icons hive-icon">hive</i>
+                </div>
+        </li>
+        <li><a href="/"><i class="material-icons">home</i>Home</a></li>
+        <li><a href="https://adrules.5iclub.us.kg" target="_blank"><i class="material-icons">security</i>AdRules</a></li>
+        <li><a href="https://5iclub.blogspot.com" target="_blank"><i class="material-icons">rss_feed</i>Blogspot</a></li>
+        <li><a href="https://status.5iclub.us.kg" target="_blank"><i class="material-icons">dns</i>服務監控</a></li>
+        <li><a href="https://vlink.cc/CNiao" target="_blank"><i class="material-icons">dashboard</i>蜂巢•隱曜</a></li>
+        <li><a href="https://ifdian.net/a/CNiao" target="_blank"><i class="material-icons">flash_on</i>愛發電•電羊</a></li>
     </ul>
    
     <main>
@@ -285,7 +325,7 @@
                     <h6><a href="https://t.me/CNiao_P" target="_blank" style="color:#ff5252;">鯉躍龍門</a></h6>
                     <p class="grey-text text-lighten-1">
                         「<span id="hitokoto_text">人的白嫖，就如同高山滾石一般，一旦開始，就再也停不下了</span>」
-    <small id="hitokoto_from">—— 魯迅</small>
+                        <small id="hitokoto_from">—— 魯迅</small>
                     </p>
                 </div>
             </div>
@@ -316,7 +356,7 @@
                 if (hour >= 6 && hour < 18) {
                     $('body').addClass('light-mode');
                 } else {
-                    $('body').removeClass('removeClass');
+                    $('body').removeClass('light-mode');
                 }
             }
 
@@ -348,10 +388,7 @@
                     .catch(console.error);
             }
 
-            // 初始加載名句
             fetchHitokoto();
-
-            // --- 名人名言自動更新 ---
             setTimeout(function() { fetchHitokoto(); }, 6000);   
             setInterval(function() { fetchHitokoto(); }, 60000);  
 
@@ -408,7 +445,6 @@
                 }
             }
 
-            // 新增：點擊狀態欄手動刷新
             $('#sync-status').on('click', function() {
                 $(this).fadeOut(200, function() {
                     $(this).text('正在重新校準時間...').css('color', '#ff5252').fadeIn(200);
@@ -427,4 +463,3 @@
     </script>
 </body>
 </html>
-
