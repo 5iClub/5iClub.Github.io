@@ -185,6 +185,7 @@
             font-size: 12px;
             color: var(--text-secondary);
         }
+        /* 修复：将 .upload-area 作为拖拽区域的主类 */
         .upload-area {
             border: 2px dashed var(--border-color);
             border-radius: 16px;
@@ -203,6 +204,13 @@
             border-color: var(--primary);
             background: var(--dragover-bg);
             transform: scale(1.02);
+        }
+        /* 上传信息样式 */
+        .upload-info {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            line-height: 1.6;
         }
         .upload-icon {
             font-size: 56px;
@@ -477,13 +485,17 @@
             </div>
 
             <div id="uploadForm">
-                <div class="upload-area" id="dropZone">
-                    <div class="upload-icon">🔗</div>
-                    <p class="upload-text">点击或将文件拖拽至此处上传</p>
-                    <p class="upload-hint">支持任意格式文件 · 最大200MB · 永久保存</p>
-                    <input type="file" id="fileInput" hidden multiple>
+                <!-- 修复：class 从 upload-zone 改为 upload-area，以应用正确的样式和拖拽高亮 -->
+                <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <div style="font-size: 40px;">📂</div>
+                    <p style="font-size: 14px; font-weight: 600; margin-top: 8px;">点击或拖拽上传</p>
+                    <div class="upload-info">
+                        ✅ 不限格式 · 📦 200MB内<br>
+                        ☁️ 永久储存 · ⚡ 加速通道
+                    </div>
+                    <input type="file" id="fileInput" hidden>
                 </div>
-                <button class="btn" onclick="document.getElementById('fileInput').click()">开始上传文件</button>
+                <button class="btn" onclick="document.getElementById('fileInput').click()">立即上传文件</button>
             </div>
 
             <div class="progress-section" id="progressSection">
@@ -553,6 +565,10 @@
                     localStorage.setItem('theme', 'dark');
                 }
             });
+
+            // 全局阻止拖拽默认行为（避免浏览器打开文件）
+            document.addEventListener('dragover', (e) => e.preventDefault());
+            document.addEventListener('drop', (e) => e.preventDefault());
 
             // Toast 提示
             function showToast(message, type = 'info') {
@@ -647,21 +663,6 @@
                 }
             };
 
-            function validateFile(file) {
-                if (file.size > MAX_FILE_SIZE) {
-                    showToast(`文件大小超过限制！最大支持200MB，当前：${(file.size/1024/1024).toFixed(2)}MB`, 'error');
-                    return false;
-                }
-                
-                const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
-                if (FORBIDDEN_TYPES.includes(fileExt)) {
-                    showToast('禁止上传可执行/脚本文件！', 'error');
-                    return false;
-                }
-                
-                return true;
-            }
-
             // DOM 元素
             const fileInput = document.getElementById('fileInput');
             const dropZone = document.getElementById('dropZone');
@@ -677,9 +678,36 @@
             const retryNotice = document.getElementById('retryNotice');
             const progressStatus = document.getElementById('progressStatus');
 
+            // 隐藏文件信息并清空内容
+            function hideFileInfo() {
+                fileInfo.style.display = 'none';
+                fileNameEl.textContent = '';
+                fileSizeEl.textContent = '';
+                fileTypeEl.textContent = '';
+            }
+
+            // 初始隐藏
+            hideFileInfo();
+
             window.addEventListener('load', () => {
                 renderHistory();
             });
+
+            // 文件验证
+            function validateFile(file) {
+                if (file.size > MAX_FILE_SIZE) {
+                    showToast(`文件大小超过限制！最大支持200MB，当前：${(file.size/1024/1024).toFixed(2)}MB`, 'error');
+                    return false;
+                }
+                
+                const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
+                if (FORBIDDEN_TYPES.includes(fileExt)) {
+                    showToast('禁止上传可执行/脚本文件！', 'error');
+                    return false;
+                }
+                
+                return true;
+            }
 
             // 拖拽事件
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -701,12 +729,15 @@
 
             dropZone.addEventListener('drop', handleDrop, false);
             dropZone.addEventListener('click', () => fileInput.click());
+            
             fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length) {
                     const file = e.target.files[0];
                     if (validateFile(file)) {
                         showFileInfo(file);
                         handleUpload(file);
+                    } else {
+                        hideFileInfo(); // 验证失败时隐藏文件信息
                     }
                 }
             });
@@ -719,6 +750,8 @@
                     if (validateFile(file)) {
                         showFileInfo(file);
                         handleUpload(file);
+                    } else {
+                        hideFileInfo(); // 验证失败时隐藏文件信息
                     }
                 }
             }
@@ -735,14 +768,9 @@
 
             // ----- 核心上传逻辑，代理池已按国内网络优化排序 -----
             const API = 'https://catbox.moe/user/api.php';
-            const DOMAIN = 'https://cors.ifanr.indevs.in/';   // 镜像加速域名
+            const DOMAIN = 'https://cors.ifanr.pp.ua/';   // 镜像加速域名
 
             // 优化后的代理池顺序（国内用户优先）
-            // 1. cors.eu.org - 国内部分地区直连速度尚可
-            // 2. cors-proxy.fringe.zone - 备用，同样对国内较友好
-            // 3. corsproxy.io - 国际通用，稳定性高但可能稍慢
-            // 4. allorigins.win - 最后备用
-            // 如需更极致的国内体验，可自行替换为：'https://cors.zimiao.cn/?' 等国内公益代理
             const PROXY_POOL = [
                 'https://cors.eu.org/',                     // 首选，国内速度较好
                 'https://cors-proxy.fringe.zone/',          // 次选，对国内较友好
